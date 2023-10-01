@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock Interface with Alarm</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8052ec, #d161ff);
+        }
+
+        #clock-container {
+            text-align: center;
+        }
+
+        #clock {
+            font-size: 36px;
+            margin-bottom: 20px;
+            backface-visibility: 40%;
+        }
+
+        #alarmTime {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        #alarmButton {
+            font-size: 18px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock-container">
+        <div id="clock"></div>
+        <div id="alarmTime">Set Alarm: <input type="time" id="alarmInput"></div>
+        <button id="alarmButton" onclick="setAlarm()">Set Alarm</button>
+    </div>
+
+    <script>
+        let alarmAudio = new Audio('Alarm3s.mp3'); // Replace with your sound file
+        let alarmSet = false;
+
+        function updateClock() {
+            let now = new Date();
+            let hours = now.getHours().toString().padStart(2, '0');
+            let minutes = now.getMinutes().toString().padStart(2, '0');
+            let seconds = now.getSeconds().toString().padStart(2, '0');
+
+            let timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').innerText = timeString;
+
+            if (alarmSet && now.getSeconds() === 0 && now.getMinutes() === parseInt(document.getElementById('alarmInput').value.split(':')[1], 10)) {
+                playAlarm();
+                alarmSet = false;
+            }
+        }
+
+        function setAlarm() {
+            let alarmTime = document.getElementById('alarmInput').value;
+            alarmSet = true;
+            alert('Alarm set for ' + alarmTime);
+        }
+
+        function playAlarm() {
+            alarmAudio.play();
+            alert('Wake up!');
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
