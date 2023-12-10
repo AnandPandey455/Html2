@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP3 Player</title>
+  
+  
+  
+  
+  
+  
+  <style>
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  .subcontainer{
+    
+    margin: 10px;
+    padding: 20px;
+    background-color:rgba(0,0,0,0.4);
+    border: 1px solid ;
+    border-radius: 25px;
+    position: absolute;
+  }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #586ed2, #d161ff,#18dbb8);
+    }
+    
+  h1{
+    color: black;
+    font-style: italic;
+    font-size: 5em;
+  }
+  
+    #audioPlayer {
+      width: 300px;
+      margin-bottom: 20px;
+    }
+
+    #controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      margin: 0 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+
+
+
+
+
+<body>
+  <h1>#Beatz ~</h1>
+  <div class="container">
+    <div class="subcontainer">
+  <audio id="audioPlayer" controls>
+    <source src="Ava.mp3" type="audio/mp3">
+  </audio>
+
+  <div id="controls">
+    <button onclick="playPrevious()"><<</button>
+    <button id="toggleButton" onclick="togglePlay()">off</button>
+    <button onclick="playNext()">>></button>
+  </div>
+  </div>
+  </div>
+
+<script>
+  let buttonText = true;
+  const audio = document.getElementById('audioPlayer');
+  const playlist = ['Go.mp3', 'Ava.mp3', 'AJR.mp3'];//include path of your mp3 files
+  let currentTrackIndex = 0;
+
+  function playNext() {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    audio.src = playlist[currentTrackIndex];
+    audio.play();
+  }
+
+  function playPrevious() {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    audio.src = playlist[currentTrackIndex];
+    audio.play();
+  }
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+    toggleText();
+  }
+
+  function toggleText() {
+    const button = document.getElementById('toggleButton');
+    buttonText = !buttonText;
+    button.innerText = buttonText ? 'off' : 'On';
+  }
+</script>
+
+</body>
+</html>
